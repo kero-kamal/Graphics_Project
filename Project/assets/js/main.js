@@ -38,6 +38,10 @@ $(function() {
 		effect: [ DESTRUCTURE_EFFECT ]
 	};
 	
+
+	
+	
+
 	DEMO.initialize('canvas-3d', parameters);
 	
 	WINDOW.resizeCallback = function(inWidth, inHeight) { DEMO.resize(inWidth, inHeight); };

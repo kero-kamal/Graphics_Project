@@ -26,6 +26,7 @@ var DEMO = {
 		this.ms_Renderer = this.enable? new THREE.WebGLRenderer() : new THREE.CanvasRenderer();
 		this.ms_Canvas.html(this.ms_Renderer.domElement);
 		this.ms_Scene = new THREE.Scene();
+		//boat = new game.Boat();
 		
 		this.ms_Camera = new THREE.PerspectiveCamera(55.0, WINDOW.ms_Width / WINDOW.ms_Height, 0.5, 3000000);
 		this.ms_Camera.position.set(0, Math.max(inParameters.width * 1.5, inParameters.height) / 8, -inParameters.height);
@@ -44,9 +45,13 @@ var DEMO = {
 		var directionalLight = new THREE.DirectionalLight(0xffff55, 1);
 		directionalLight.position.set(-600, 300, 600);
 		this.ms_Scene.add(directionalLight);
+		//this.ms_Scene.add(boat);
 		
 		// Create terrain
 		this.loadTerrain(inParameters);
+
+		// load boat
+		this.loadBoat();
 		
 		// Load textures		
 		var waterNormals = new THREE.ImageUtils.loadTexture('../assets/img/waternormals.jpg');
@@ -128,6 +133,23 @@ var DEMO = {
 		var terrain = new THREE.Mesh(terrainGeo, terrainMaterial);
 		terrain.position.y = - inParameters.depth * 0.4;
 		this.ms_Scene.add(terrain);
+	},
+	loadBoat: function loadBoat(){
+		this.geom = new THREE.BoxGeometry( 200, 30, 80 );
+	
+		// create the material
+		// with brown colour and flat shading
+		this.mat = new THREE.MeshPhongMaterial({
+		
+		shading:THREE.FlatShading,
+	});
+
+	this.mesh = new THREE.Mesh(this.geom, this.mat);
+
+	// set specific properties for the mesh
+	this.mesh.receiveShadow = true; 
+	this.mesh.position.z = 300;
+	this.ms_Scene.add(this.mesh);
 	},
 	
 	display: function display() {
